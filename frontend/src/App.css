@@ -1,0 +1,44 @@
+.view-header {
+  height: 120px;
+  width: 100%;
+  justify-content: space-between;
+  .logo {
+  }
+  .menu {
+    button {
+      cursor: pointer;
+    }
+  }
+  .tools {
+  }
+}
+
+.view-body {
+  display: grid;
+  grid-template-columns: 480px 1fr;
+  height: calc(100vh - 120px);
+  width: 100%;
+  .sidebar {
+    height: 100%;
+    max-width: 480px;
+    height: 100%;
+    transform: translateX(-480px);
+    &.open {
+      transform: translateX(0);
+    }
+
+    &__head {
+    }
+    &__body {
+      height: calc(100% - 120px);
+      .search-box {
+      }
+    }
+  }
+
+  .main {
+    width: 100%;
+    height: 100%;
+    max-width: 1360px;
+  }
+}
