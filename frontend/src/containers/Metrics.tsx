@@ -131,7 +131,7 @@ function Metrics({ city, country }: MetricsProps) {
               <h2>
                 {city}, {country}
               </h2>
-              <p>{moment.unix(current.dt).format("LLLL")}</p>
+              <p>{moment.unix(current?.dt).format("LLLL")}</p>
             </div>
             <div>
               <div className="flex items-center">
@@ -139,8 +139,8 @@ function Metrics({ city, country }: MetricsProps) {
                   <WiDayCloudy size={100} />
                 </div>
                 <div>
-                  <h1>{current.temp}&deg;</h1>
-                  <p>{current.weather[0].description}</p>
+                  <h1>{current?.temp}&deg;</h1>
+                  <p>{current?.weather[0].description}</p>
                 </div>
               </div>
             </div>
@@ -162,12 +162,12 @@ function Metrics({ city, country }: MetricsProps) {
                 </div>
                 <div className="metric-widget__body">
                   <div className="figure">
-                    <h3>{current.temp}&deg;</h3>
-                    <p>{current.weather[0].description}</p>
+                    <h3>{current?.temp}&deg;</h3>
+                    <p>{current?.weather[0].description}</p>
                   </div>
                   <div className="">
                     <div className="flex gap-6">
-                      {hourly.map((stat, i: number) => {
+                      {hourly?.map((stat, i: number) => {
                         const { temp, dt } = stat;
                         return (
                           <TemperatureStat
