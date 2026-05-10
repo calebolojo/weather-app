@@ -19,6 +19,7 @@ import Precipitation from "@/features/metrics/precipitation/Precipitation";
 import moment from "moment";
 import { getCurrentGreeting } from "@/utils/greeting";
 import { WiDayCloudy } from "react-icons/wi";
+import CreateWeatherAlert from "@/features/weather-alert/CreateWeatherAlert";
 
 const dayTemperatureStat: Partial<Temp>[] = [
   {
@@ -102,6 +103,7 @@ export interface MetricsProps {
 }
 function Metrics({ city, country }: MetricsProps) {
   const weatherData = useAppSelector(selectWeatherMetricsData);
+  // const [showWeatherAlertForm, setShowWeatherAlertForm] = useState(false);
 
   const {
     current,
@@ -120,8 +122,9 @@ function Metrics({ city, country }: MetricsProps) {
   }
 
   return (
-    <div className="relative flex w-screen h-screen overscroll-none">
+    <div className="relative flex h-screen overscroll-none">
       <div className="main">
+        {/* HEAD */}
         <div className="head">
           <div>
             <h4>Good {getCurrentGreeting()}</h4>
@@ -132,6 +135,9 @@ function Metrics({ city, country }: MetricsProps) {
                 {city}, {country}
               </h2>
               <p>{moment.unix(current?.dt).format("LLLL")}</p>
+              <div>
+                <CreateWeatherAlert />
+              </div>
             </div>
             <div>
               <div className="flex items-center">
@@ -146,67 +152,37 @@ function Metrics({ city, country }: MetricsProps) {
             </div>
           </div>
         </div>
+        {/* END */}
         <div className="metrics">
-          <div className="column1">
-            <div className="metric-widget base ">
-              <div className="metric-widget-wrap">
-                <div className="metric-widget__head">
-                  <div className="flex items-center">
-                    <div>
-                      <FiHome />
-                    </div>
-                    <p>
-                      Home <span>&middot;</span> {city}
-                    </p>
+          {/* <div className="column1"> */}
+          <div className="metric-widget base ">
+            <div className="metric-widget-wrap">
+              <div className="metric-widget__head">
+                <div className="flex items-center">
+                  <div>
+                    <FiHome />
                   </div>
-                </div>
-                <div className="metric-widget__body">
-                  <div className="figure">
-                    <h3>{current?.temp}&deg;</h3>
-                    <p>{current?.weather[0].description}</p>
-                  </div>
-                  <div className="">
-                    <div className="flex gap-6">
-                      {hourly?.map((stat, i: number) => {
-                        const { temp, dt } = stat;
-                        return (
-                          <TemperatureStat
-                            key={i}
-                            layout="VERTICAL"
-                            min={temp}
-                            max={temp}
-                            day={dt}
-                          />
-                        );
-                      })}
-                    </div>
-                  </div>
+                  <p>
+                    Home <span>&middot;</span> {city}
+                  </p>
                 </div>
               </div>
-            </div>
-            <div className="metric-widget seven-day-forecast">
-              <div className="metric-widget-wrap">
-                <div className="metric-widget__head">
-                  <div className=" flex items-center">
-                    <div>
-                      <FaRegCalendarAlt />
-                    </div>
-                    <div>
-                      <p>7 - Day Forecast</p>
-                    </div>
-                  </div>
+              <div className="metric-widget__body">
+                <div className="figure">
+                  <h3>{current?.temp}&deg;</h3>
+                  <p>{current?.weather[0].description}</p>
                 </div>
-                <div className="metric-widget__body">
-                  <div className="flex flex-col gap-6">
-                    {sevenDayForecast.map((stat, i: number) => {
-                      const { min, max, day } = stat;
+                <div className="">
+                  <div className="flex gap-6">
+                    {hourly?.map((stat, i: number) => {
+                      const { temp, dt } = stat;
                       return (
                         <TemperatureStat
                           key={i}
-                          layout="HORIZONTAL"
-                          min={min}
-                          max={max}
-                          day={day}
+                          layout="VERTICAL"
+                          min={temp}
+                          max={temp}
+                          day={dt}
                         />
                       );
                     })}
@@ -215,7 +191,7 @@ function Metrics({ city, country }: MetricsProps) {
               </div>
             </div>
           </div>
-          <div className="column2">
+          <div className="row-1-right">
             <div className="metric-widget uv-index">
               <UvIndex />
             </div>
@@ -225,6 +201,39 @@ function Metrics({ city, country }: MetricsProps) {
             <div className="metric-widget visibility">
               <Visibility />
             </div>
+          </div>
+          <div className="metric-widget seven-day-forecast">
+            <div className="metric-widget-wrap">
+              <div className="metric-widget__head">
+                <div className=" flex items-center">
+                  <div>
+                    <FaRegCalendarAlt />
+                  </div>
+                  <div>
+                    <p>7 - Day Forecast</p>
+                  </div>
+                </div>
+              </div>
+              <div className="metric-widget__body">
+                <div className="flex flex-col gap-6">
+                  {sevenDayForecast.map((stat, i: number) => {
+                    const { min, max, day } = stat;
+                    return (
+                      <TemperatureStat
+                        key={i}
+                        layout="HORIZONTAL"
+                        min={min}
+                        max={max}
+                        day={day}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="row-2-right">
             <div className="metric-widget pressure">
               <FeelsLike />
             </div>
@@ -250,6 +259,31 @@ function Metrics({ city, country }: MetricsProps) {
               <Precipitation />
             </div>
           </div>
+          {/* <div className="metric-widget pressure">
+            <FeelsLike />
+          </div>
+          <div className="metric-widget averages">
+            <Averages />
+          </div>
+          <div className="metric-widget rainfall">
+            <RainFall />
+          </div>
+          <div className="metric-widget wind">
+            <Wind />
+          </div>
+          <div className="metric-widget air-quality">
+            <AirQuality />
+          </div>
+          <div className="metric-widget humidity">
+            <Humidity />
+          </div>
+          <div className="metric-widget pressure">
+            <Pressure />
+          </div>
+          <div className="metric-widget precipitation">
+            <Precipitation />
+          </div> */}
+          {/* </div> */}
         </div>
       </div>
     </div>

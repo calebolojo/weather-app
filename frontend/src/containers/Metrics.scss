@@ -1,38 +1,51 @@
 .metrics {
   display: grid;
   height: 100%;
-  grid-template-areas: "column1 column2";
-  grid-template-columns: minmax(300px, 400px) 1fr;
-  .column1 {
-    grid-area: "column1";
-    height: 100%;
+  grid-template-areas:
+    "base row-1-right"
+    "seven-day-forecast row-2-right";
+  grid-template-columns: 35% 65%;
+  grid-template-rows: 300px 1fr;
+  gap: 20px;
+  .row-1-right,
+  .row-2-right {
     display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 33.333%, 1fr;
-    grid-gap: 16px;
-    .base {
-      background-color: grey;
-      border-radius: var(--weather-data-panel-radius);
-    }
-    .seven-day-forecast {
-      background-color: grey;
-      border-radius: var(--weather-data-panel-radius);
-    }
+    gap: 20px;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: repeat(3, 300px);
   }
-  .column2 {
-    padding: 0 32px;
-    box-sizing: border-box;
-    grid-area: column2;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: repeat(4, 1fr);
-    grid-template-areas:
-      "uv-index sunrise visibility"
-      "pressure averages rainfall"
-      "wind air-quality humidity"
-      "pressure precipitation";
-    grid-gap: 16px;
-  }
+  // grid-template-areas: "column1 column2";
+  // grid-template-columns: minmax(300px, 400px) 1fr;
+  // .column1 {
+  //   grid-area: "column1";
+  //   height: 100%;
+  //   display: grid;
+  //   grid-template-columns: 1fr;
+  //   grid-template-rows: 33.333%, 1fr;
+  //   grid-gap: 16px;
+  //   .base {
+  //     background-color: grey;
+  //     border-radius: var(--weather-data-panel-radius);
+  //   }
+  //   .seven-day-forecast {
+  //     background-color: grey;
+  //     border-radius: var(--weather-data-panel-radius);
+  //   }
+  // }
+  // .column2 {
+  //   padding: 0 32px;
+  //   box-sizing: border-box;
+  //   grid-area: column2;
+  //   display: grid;
+  //   grid-template-columns: repeat(3, 1fr);
+  //   grid-template-rows: repeat(4, 1fr);
+  //   grid-template-areas:
+  //     "uv-index sunrise visibility"
+  //     "pressure averages rainfall"
+  //     "wind air-quality humidity"
+  //     "pressure precipitation";
+  //   grid-gap: 16px;
+  // }
 }
 
 .metric-widget {

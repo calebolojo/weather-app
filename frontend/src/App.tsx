@@ -31,10 +31,10 @@ const Container = styled.div`
 function App() {
   const dispatch = useAppDispatch();
   const [searchParams] = useSearchParams();
-  const city = searchParams.get("city") || "Atlanta";
-  const country = searchParams.get("country") || "US";
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const activeView = useAppSelector(selectActiveView);
+  const city = searchParams.get("city") || "Atlanta";
+  const country = searchParams.get("country") || "US";
 
   useEffect(() => {
     const fetch = async () => {
@@ -57,6 +57,7 @@ function App() {
     <div className="relative flex">
       <div className="relative flex w-screen h-screen overscroll-none">
         <Container>
+          {/* Header */}
           <div className="view-header flex align-middle">
             <div className="logo">
               <h2>Weather App</h2>
@@ -75,7 +76,10 @@ function App() {
             </div>
             <div className="tools">Search settings</div>
           </div>
+          {/* END */}
+          {/* BODY */}
           <div className="view-body">
+            {/* SIDEBAR */}
             <div className={cn("sidebar px-6", isSidebarOpen && "open")}>
               <div className="sidebar__head relative"></div>
               <div className="sidebar__body">
@@ -93,11 +97,17 @@ function App() {
                 <WeatherLocationCard city="Atlanta" localTime="01:31" />
               </div>
             </div>
+            {/* END */}
+            {/* MAIN */}
             <div className="main">
               {activeView === "metrics" && (
-                <Metrics city={city} country={country} />
+                <Metrics
+                  city={city}
+                  country={country}
+                />
               )}
             </div>
+            {/* END */}
           </div>
         </Container>
       </div>
